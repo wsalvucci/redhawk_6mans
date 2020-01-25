@@ -8,6 +8,14 @@ notificationChannelId = '669678380563824640'
 guildId = '487359838213636111'
 categoryId = '669684488384544798'
 
+function getTeamTotalMMR(playerList) {
+    var totalMMR = 0
+    playerList.forEach(player => {
+        totalMMR += player['mmr']
+    });
+    return totalMMR
+}
+
 
 module.exports = (queue) => {
     const guild = client.guilds.get(guildId)
@@ -26,20 +34,22 @@ module.exports = (queue) => {
         var orangeTeam = []
         var blueTeam = []
         var addToOrange = true
-        var orangeTeamMembers = '.'
-        var blueTeamMembers = '.'
+        var orangeTeamMembers = ''
+        var blueTeamMembers = ''
+
+        // Sort players by MMR from highest to lowest
+        queue.sort((a, b) => a['mmr'] - b['mmr'])
 
         for (var i = 0; i < 6; i++) {
-            var nextPlayer = queue.shift()
-            if (addToOrange) {
-                orangeTeam.push(nextPlayer)
-                orangeTeamMembers = orangeTeamMembers + nextPlayer['name']
-                addToOrange = false
-            } else {
+            // Send the highest rated player to the team with the lowest total MMR
+            if (totalMMR(orangeTeam) >= totalMMR(blueTeam)) {
                 blueTeam.push(nextPlayer)
-                blueTeamMembers = blueTeamMembers + nextPlayer['name']
-                addToOrange = true
+                blueTeamMembers = blueTeamMembers + nextPlayer['name'] + ' '
+            } else {
+                orangeTeam.push(nextPlayer)
+                orangeTeamMembers = orangeTeamMembers + nextPlayer['name'] + ' '
             }
+            var nextPlayer = queue.shift()
         }
 
         games.push({
