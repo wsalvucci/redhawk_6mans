@@ -1,0 +1,15 @@
+{
+  "name": "redhawk_six_mans",
+  "version": "1.0.0",
+  "description": "6mans discord bot for the Miami RL discord server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "William Salvucci",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "moment": "^2.24.0"
+  }
+}

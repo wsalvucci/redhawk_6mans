@@ -1,0 +1,1 @@
+const messageReciever = require('./utils/messageReciever')
