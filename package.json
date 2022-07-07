@@ -11,6 +11,6 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "forever": "^2.0.0",
-    "moment": "^2.24.0"
+    "moment": "^2.29.4"
   }
 }
